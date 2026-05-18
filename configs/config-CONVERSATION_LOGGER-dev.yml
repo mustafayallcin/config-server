@@ -1,0 +1,88 @@
+application:
+  microservice-configuration:
+    hazelcast:
+      discovery-mechanism: "lite_member"
+      lite-member:
+        cluster-members: "conversationlogger"
+        instance-port-padding: 5701
+  microservice-role:
+    aggregator: true
+    raw-data: true
+  service-time-configuration:
+    service-time1-lower-bound: 0
+    service-time1-upper-bound: 10
+    service-time2-lower-bound: 10
+    service-time2-upper-bound: 20
+    service-time3-lower-bound: 20
+    service-time3-upper-bound: 30
+    service-time4-lower-bound: 30
+    service-time4-upper-bound: 60
+  task-executor-properties:
+    core-size: 4
+    maximum-size: 6
+    queue-capacity: 1000000
+cron-job:
+  initialize-agent-aggregation-15-min-cron: "0 6/15 * * * ?"
+  initialize-agent-session-aggregation-15-min-cron: "0 4/15 * * * ?"
+  initialize-agent-sub-type-aggregation-15-min-cron: "0 8/15 * * * ?"
+  initialize-queue-aggregation-15-min-cron: "0 7/15 * * * ?"
+eureka:
+  client:
+    service-url:
+      defaultZone: "{cipher}e51e30fa3987e30a8bcfa1cd2b907b7244f63774e35446062b5d7bc93461523aaf33aeba223b56a0c13eb9b533b71b015881a696320a700db2d61d4d2eaa36c0"
+kafka:
+  agentMessageTopic: "AGENT_MESSAGE_TOPIC"
+  bootstrap-servers: "localhost:9092"
+  callMessageTopic: "CALL_MESSAGE_TOPIC"
+  consumer:
+    auto:
+      offset:
+        reset: "latest"
+    group:
+      id: "conversation-logger"
+  different-group-id-consumer:
+    auto:
+      offset:
+        reset: "latest"
+    group:
+      id: "conversation-logger-${spring.application.instance-id:${random.value}}"
+  fromConversationLoggerToMediaProcessorTopic: "FROM_CONVERSATION_LOGGER_TO_MEDIA_PROCESSOR_TOPIC"
+  fromMediaProcessorToConversationLoggerTopic: "FROM_MEDIA_PROCESSOR_TO_CONVERSATION_LOGGER_TOPIC"
+  generalMessageTopic: "GENERAL_MESSAGE_TOPIC"
+  sendAckTimeoutSeconds: 10
+  sendRetryDelaySeconds: 2
+  sendRetrySchedulerThreads: 8
+  topics:
+    number-of-partitions: 1
+    replication-factor: 1
+not-ready-reason:
+  default-provider: "sisphone"
+server:
+  port: 26083
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: "localhost:9092"
+  datasource:
+    hikari:
+      maximum-pool-size: 500
+      minimum-idle: 50
+    password: "{cipher}91811050b05562cd890ac77ba215d192155381c446fc35f3a47c95cc04702b79"
+    url: "jdbc:sqlserver://localhost:1433;database=svr;encrypt=true;trustServerCertificate=true"
+    username: "{cipher}a80cfa22642e99783b756259cc7d4d1e11062fd76a59ae5a00a1df9b4f6a0b3a"
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: "https://sistas-keycloak.sistas.com.tr/realms/sistas"
+        registration:
+          oidc:
+            client-id: "chatbot"
+            client-secret: "{cipher}81146dda3dc1f490bde5ea3e35fe43ffc635cc99e9e476b2cd374e3d14b3579751ec4218faad477a7115d4dec95327dc940b611bc08314289b1d1a2f902f1f92"
+user-data-config:
+  cron: "0 0 * * * ?"
+  instance-name: "USER_DATA"
+  profile: "dev"
