@@ -1,0 +1,52 @@
+application:
+  auto-sign:
+    enabled: false
+    redirect-url: "https://google.com"
+  hazelcast:
+    port: 5701
+  keycloak-admin:
+    app-realm-id: "sistas"
+    app-resource-id: "sistas-voice"
+    app-resource-secret: "{cipher}e1c2e1e0e8a200d09c4ea5a24a0e6523ed22394aa5ae471374642907ca291321a6389e4e70a33f4699a42c7fdd8d5efde92fea2dcc84c956f400f14af060bd42"
+    client-id: "admin-cli"
+    max-pool-size: 10
+    password: "{cipher}45d30417e6af716202e583e18c0a9209a1f197f87f692bf958079a28b8f9e925"
+    realm: "master"
+    server-url: "https://sistas-keycloak.sistas.com.tr"
+    trusted-audiences:
+    - "sistas-eva"
+    - "smart"
+    - "campus"
+    - "sistas-phone"
+    - "cc-solutions"
+    - "chatbot"
+    - "client_credentials"
+    username: "{cipher}89b9f335dfa46c539d40825a675f5776ca0cee19b76cee45d5e39eeff9062579"
+  session-management-properties:
+    concurrent-session-allowed: false
+    session-timeout-in-minutes: 120
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://admin:admin@localhost:8761/eureka/"
+jhipster:
+  gateway:
+    rate-limiting:
+      duration-in-seconds: 3600
+      enabled: false
+      limit: 100000
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        pool:
+          max-connections: 1000
+  hazelcast:
+    network:
+      join:
+        tcp-ip:
+          members:
+          - "127.0.0.1:5050"
+          - "127.0.0.1:5051"
