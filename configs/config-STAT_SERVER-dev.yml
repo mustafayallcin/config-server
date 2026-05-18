@@ -1,0 +1,65 @@
+application:
+  microservice-configuration:
+    hazelcast:
+      discovery-mechanism: "lite_member"
+      lite-member:
+        cluster-members: "statserver"
+        instance-port-padding: 5701
+  service-time-configuration:
+    service-time1-lower-bound: 0
+    service-time1-upper-bound: 10
+    service-time2-lower-bound: 10
+    service-time2-upper-bound: 20
+    service-time3-lower-bound: 20
+    service-time3-upper-bound: 30
+    service-time4-lower-bound: 30
+    service-time4-upper-bound: 60
+  svr-configuration:
+    url: "http://127.0.0.1:8080"
+eureka:
+  client:
+    service-url:
+      defaultZone: "{cipher}714542a7479f15d7796dbf4313c1099d4d16a74f1755d2b067db6c869801a8bd3bc76d551c1ea649c9324dfd5b31d416067497ad03b608e861dfce7037720923"
+kafka:
+  agentMessageTopic: "AGENT_MESSAGE_TOPIC"
+  bootstrap-servers: "127.0.0.1:9092"
+  callMessageTopic: "CALL_MESSAGE_TOPIC"
+  configChangeTopic: "CONFIG_CHANGE_TOPIC"
+  consumer:
+    auto:
+      offset:
+        reset: "latest"
+    group:
+      id: "stat-server-${spring.application.instance-id:${random.value}}"
+  generalMessageTopic: "GENERAL_MESSAGE_TOPIC"
+  topics:
+    number-of-partitions: 1
+    replication-factor: 1
+scheduled:
+  clear-all-statistics:
+    cron: "0 0 0 1/1 * ?"
+  config:
+    changed-states-interval: 10000
+    changed-statistics-interval: 30000
+    cron: "0 0/10 * * * ?"
+security:
+  api-access:
+    access-token: "{cipher}9834f2dda913a531e207d8d356534167ef1a24ba10665f998afcde99cef990897d56e8be8a8b042c7a693ccfbc69c219597fe12551fd19f285ece7addfb5ff65"
+server:
+  port: 26081
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: "127.0.0.1:9092"
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: "https://sistas-keycloak.sistas.com.tr/realms/sistas"
+        registration:
+          oidc:
+            client-id: "chatbot"
+            client-secret: "{cipher}3b5d1ddc20f414efc8c918c9d557cf4b61bdd777de7a2d1c9bd2dee82739d5ff08afb42426e5b150e26b8bf56bc8cc4bcdde30a3108b7ea75f2c1643e7376fc9"
