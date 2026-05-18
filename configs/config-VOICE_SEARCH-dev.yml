@@ -1,0 +1,122 @@
+application:
+  config-server:
+    keycloak-config:
+      client-id: "sistas-voice"
+      client-secret: "{cipher}17e9d021cc91023f48c517110725f842f3b38a6f85ffe43e9b1c20f14ec2fda26d6ab35eae91d33ddbf4502b5dfb2185eb9951ba9a4e69220ec7f8aef6bb5f17"
+      grant-type: "client_credentials"
+      keycloak-url: "https://sistas-keycloak.sistas.com.tr/realms/sistas/protocol/openid-connect/token"
+    user-data-config:
+      enabled: false
+      user-data-business-config:
+        profile: "dev"
+        user-data-instance-name: "USER_DATA"
+  conversation-share:
+    open-count: 5
+  elasticsearch:
+    enabled: false
+    real-time:
+      reindex-cron: "0 */30 * ? * *"
+      reindex-enabled: false
+      reindex-entities:
+      - "Agent"
+      reindex-size: 1000
+    scheduled:
+      reindex-cron: "0 */30 * ? * *"
+      reindex-enabled: false
+      reindex-entities:
+      - "CallPartyContext"
+      reindex-size: 1000
+    searchable-fields:
+    - "CallPartyContext.ani"
+    - "CallPartyContext.dnis"
+    selectable-fields:
+    - "CallPartyContext.userData1"
+    - "CallPartyContext.userData2"
+    skip-ssl: true
+  enabled-media-file-auto-delete: false
+  hazelcast:
+    port: 5701
+  keycloak-admin:
+    app-realm-id: "sistas"
+    app-resource-id: "sistas-voice"
+    app-resource-secret: "{cipher}d56d43b2f8e8e9bd1b827dd6a48de14c75433d4d156dd7f31d7a0341208eb9bb8e2941dc6dc5e5dc51d22a0204906307ff7e6828d7962370d946a096f7cf9940"
+    client-id: "admin-cli"
+    max-pool-size: 10
+    password: "{cipher}2b349603191af7ce324698ec56cbb77dd529922b0aeef416b007b187819fcf31"
+    realm: "master"
+    server-url: "https://sistas-keycloak.sistas.com.tr"
+    trusted-audiences:
+    - "sistas-eva"
+    - "chatbot"
+    - "cc-solutions"
+    - "client_credentials"
+    username: "administrator"
+  media-file-cron: "0 28 18 * * *"
+  media-processor:
+    enabled: false
+  public-api:
+    devices-by-ip: true
+  remove-liquibase-lock: false
+  security:
+    key: "{cipher}7d222cbcd98dcb0623b5adf17bba13df1f0724f5d8be13ad2e7570e152dab9e705ee7773e8a76e905c4842e0e398d9e0"
+  sis-phone-properties:
+    enabled: true
+    password: "{cipher}7d70d4484c9694a6420fe6868d09b4a2a9655866f5312e2f7c9b5cddb6f5585f"
+    url: "http://192.168.12.152/sisphone"
+    username: "{cipher}2721de04b900a089225c8c729731b34163a36f2d12e616544109657e2729c0f9"
+batch-synchronization:
+  enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: "{cipher}4752a0a98a5bb0f717fa6af81c9e0d5a9fae71fb07ba3486f692b49976770c1cd3618634609fab0f6096168963e3b27202b93271dea7d9793a60696ca721eaeb"
+kafka:
+  bootstrap-servers: "localhost:9092"
+  configChangeTopic: "CONFIG_CHANGE_TOPIC"
+  consumer:
+    auto:
+      offset:
+        reset: "latest"
+    group:
+      id: "voice-search"
+  different-group-id-consumer:
+    auto:
+      offset:
+        reset: "latest"
+    group:
+      id: "voice-search-${spring.application.instance-id:${random.value}}"
+  enabled: true
+  sendAckTimeoutSeconds: 10
+  sendRetryDelaySeconds: 2
+  sendRetrySchedulerThreads: 8
+  topics:
+    number-of-partitions: 1
+    replication-factor: 1
+not-ready-reason:
+  default-provider: "sisphone"
+rest-call-process:
+  access-token: "{cipher}9c876db1611f71ad436d721ecd254bd269c275f42c16ec50910f0b8c1c657666"
+  location-server-type: "VOICESERVER"
+  media-location-path: "/opt/sistas/voiceserver/datafiles/source"
+search-list:
+  size: 50
+security:
+  api-access:
+    access-token: "{cipher}1ed3148003c8f1ee0e446def3a03d1efd004959d81e6ad6c21ffd25f5def7c4541a73d8118cb10b77f2a0675b042ad5946e017513380a932bd19b872fa0acd8f"
+    enabled: true
+server:
+  port: 8081
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: "localhost:9092"
+  datasource:
+    password: "{cipher}3679e33e2394476bf63d032fa427041b5844bf3bf84594ee5e4af533b02ab80c"
+    url: "jdbc:sqlserver://localhost:1433;database=svr;encrypt=true;trustServerCertificate=true"
+    username: "{cipher}bc27f7342c9b57859ee1ab1edb743d6801a2d4bf91cbaadfaabfa4cd29d185fb"
+  elasticsearch:
+    password: "{cipher}41c1b3753f26b5bb37e7a998cb08a0ba6434d66283520c48f91dfb9859c5564e"
+    uris: "http://localhost:9200"
+    username: "{cipher}c68803b97f47debbaace5bf13ccfa2c71a96491f022a960d13888763c239fce2"
